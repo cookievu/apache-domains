@@ -84,7 +84,7 @@ if [ "$key" = "y" ]; then
 	sudo echo "<VirtualHost *:80>" >> $FILE
 	sudo echo "	ServerName  "$fullSubDomainName >> $FILE
 	sudo echo "	ServerAlias  www."$fullSubDomainName >> $FILE
-	sudo echo "	ServerAdmin admin@"$fullSubDomainName >> $FILE
+	sudo echo "	ServerAdmin admin@"$domainName >> $FILE
 	sudo echo "	DocumentRoot "$subPublicPath >> $FILE
 	sudo echo " ErrorLog " '$'{APACHE_LOG_DIR}"/error.log" >> $FILE
 	sudo echo " CustomLog " '$'{APACHE_LOG_DIR}"/access.log combined" >> $FILE

@@ -29,15 +29,15 @@ if [ ! -d "$wwwPath$domainName" ]; then
 	read key
 	if [ "$key" == "y" ]; then
 
-		echo "Make domain dir..."
+		echo "1. Make domain dir..."
 		mkdir $domainPath
-		echo "Make public dir..."
+		echo "2. Make public dir..."
 		mkdir $publicPath
 		sudo chown -R $USER:$USER $publicPath
 		sudo chmod -R 755 $wwwPath
 		FILE=$filePath$domainName".conf"
 
-		echo "Generate configuration..."
+		echo "3 .Generate configuration..."
 		sudo echo "<VirtualHost *:80>" >> $FILE
 		sudo echo "	ServerName  "$domainName >> $FILE
 		sudo echo "	ServerAlias  www."$domainName >> $FILE
@@ -47,10 +47,10 @@ if [ ! -d "$wwwPath$domainName" ]; then
 		sudo echo " CustomLog " '$'{APACHE_LOG_DIR}"/access.log combined" >> $FILE
 		sudo echo "</VirtualHost>" >> $FILE
 
-		echo "Define config..."
+		echo "4. Define config..."
 		sudo a2ensite $domainName".conf"
 
-		echo "Restart apache..."
+		echo "5. Restart apache..."
 		sudo service apache2 restart
 
 		echo "Done!"
@@ -66,34 +66,34 @@ echo "Do you want to create a subdomain? [y/n]"
 read key
 
 if [ "$key" = "y" ]; then
-	echo "Enter subdomain (sub only):"
+	echo "1. Enter subdomain (sub only):"
 	read subDomainName
 
 	fullSubDomainName=$subDomainName"."$domainName
 	subDomainPath=$domainPath"/"$subDomainName
 	subPublicPath=$subDomainPath"/public_html"
 
-	echo "Make subdomain dir..."
+	echo "2 .Make subdomain dir..."
 	mkdir $subDomainPath
-	echo "Make subdomain public dir..."
+	echo "3 .Make subdomain public dir..."
 	mkdir $subPublicPath
 	sudo chown -R $USER:$USER $subPublicPath
 	FILE=$filePath$fullSubDomainName".conf"
 
-	echo "Generate configuration..."
+	echo "4 .Generate configuration..."
 	sudo echo "<VirtualHost *:80>" >> $FILE
 	sudo echo "	ServerName  "$fullSubDomainName >> $FILE
-	sudo echo "	ServerAlias  www."$fullSubDomainName >> $FILE
+	# sudo echo "	ServerAlias  www."$fullSubDomainName >> $FILE
 	sudo echo "	ServerAdmin admin@"$domainName >> $FILE
 	sudo echo "	DocumentRoot "$subPublicPath >> $FILE
 	sudo echo " ErrorLog " '$'{APACHE_LOG_DIR}"/error.log" >> $FILE
 	sudo echo " CustomLog " '$'{APACHE_LOG_DIR}"/access.log combined" >> $FILE
 	sudo echo "</VirtualHost>" >> $FILE
 
-	echo "Define config..."
+	echo "5. Define config..."
 	sudo a2ensite $fullSubDomainName".conf"
 
-	echo "Restart apache..."
+	echo "6 .Restart apache..."
 	sudo service apache2 restart
 
 	echo "Done!"

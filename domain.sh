@@ -70,7 +70,7 @@ if [ "$key" = "y" ]; then
 	read subDomainName
 
 	fullSubDomainName=$subDomainName"."$domainName
-	subDomainPath=$domainPath"/"subDomainName
+	subDomainPath=$domainPath"/"$subDomainName
 	subPublicPath=$subDomainPath"/public_html"
 
 	echo "Make subdomain dir..."
